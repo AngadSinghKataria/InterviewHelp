@@ -1,0 +1,17 @@
+.container{
+    width: 15.2395vw;
+    color: black;
+    text-align: left;
+    border-radius: 25px;
+    font-family: 'Montserrat';
+    margin-right: 25px;
+}
+.containImg{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+}
+.containData{
+    text-align: center;
+    font-size: 25px;
+}

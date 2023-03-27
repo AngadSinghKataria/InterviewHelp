@@ -1,0 +1,22 @@
+.container{
+    background-color: #bfa0e2; width: 100vw; height: 100vh;padding: 0vh 7.8125vw;
+    display: flex;
+    width: 84.375vw;
+    justify-content: space-between;
+    position: sticky;
+    position: -webkit-sticky;
+    align-self: flex-start;
+    align-items: center;
+    top: 0;
+    height: 10.8695vh;
+}
+.topics{
+    display: flex;
+    justify-content: flex-end;
+}
+.topics *>*:hover{
+    border-bottom: 2px solid #fff;
+}
+.topics *>*{
+    border-bottom: 2px solid #6AB5FF;
+}

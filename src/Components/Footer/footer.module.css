@@ -1,0 +1,18 @@
+.container{
+    background-color: black;
+    display: flex;
+    position: sticky;
+    position: -webkit-sticky;
+    align-self: center;
+    align-items: center;
+    top: 0;
+    border-top: 1px solid rgb(27, 27, 27);
+    flex-direction: row;
+    text-align: center;
+    width: 100vw;
+}
+.topics{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
