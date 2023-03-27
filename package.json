@@ -2,6 +2,7 @@
   "name": "resume-site",
   "version": "0.1.0",
   "private": true,
+  "proxy":"http://localhost:5000/",
   "dependencies": {
     "@mediapipe/face_mesh": "^0.4.1633559619",
     "@testing-library/jest-dom": "^5.16.5",
