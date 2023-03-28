@@ -58,6 +58,12 @@ export default function DashboardAdmin(){
                         <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Full Stack Dev</td>
                         <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}} onClick={()=>{navigate('/testpreview')}}><div style={{backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px'}}>Preview</div></td>
                     </tr>
+                    <tr>
+                        <td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}} onClick={()=>{navigate('/createtest')}}><div style={{backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px'}}>Create Test</div></td>
+                        </td>
+                    </tr>
+
                 </table>
             )
         }

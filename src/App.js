@@ -6,6 +6,7 @@ import Dashboard  from "./Pages/dashboard";
 import TestPage from "./Pages/textPage";
 import DashboardAdmin from "./Pages/dashboardRecruit";
 import TestPagePreview from "./Pages/textPagePreview";
+import CreateTest from "./Pages/createTest";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="recruiter" element={<DashboardAdmin />} />
           <Route path="testpreview" element={<TestPagePreview />} />
           <Route path="test" element={<TestPage />} />
+          <Route path="createtest" element={<CreateTest />} />
         </Route>
       </Routes>
     </BrowserRouter>

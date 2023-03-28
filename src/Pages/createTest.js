@@ -4,26 +4,37 @@ import Header from "../Components/Header/Header"
 import Text from "../Components/text"
 // const webgazer =  require('webgazer')
 
-const webgazer = window.webgazer
 
-export default function TestPagePreview(){
-
+export default function CreateTest() {
+    
     const [render, setRender] = useState(0)
     const [option, setOption] = useState(0)
     const [endTest, setEndTest] = useState(false)
     const [qna, setQnA] = useState({
-        questions: ['Tell me about yourself?', 'why are you applying?', 'what position are you applying for?'],
-        answers: ['','','']
+        questions: [],
+        answers: []
     });
     const [count, setCount] = useState(0);
+    const [maxCount, setMaxCount] = useState(-1);
     const navigate = useNavigate()
-    const incrementCount = () => {
+    
+    const incrementCount = () => {    
+        setCount(count+1);
         
-        setCount(Math.min(count+1,qna.questions.length-1));
+        if (count>maxCount) {
+            setQnA({
+                ...qna, 
+                questions: [...qna.questions, ''],
+                answers: [...qna.answers, '']
+            })
+            console.log(qna)
+            setMaxCount(count);
+        }
+        console.log(count, maxCount)
         
     };
     const decrementCount = () => {
-        if(count != 0){
+        if(count > 0){
             setCount(count - 1);
         }
     };
@@ -39,6 +50,39 @@ export default function TestPagePreview(){
           ]
         });
       }
+
+      function updateQuestions(event) {
+        const value = event.target.value;
+        setQnA({
+          ...qna,
+          questions: [
+            ...qna.questions.slice(0, count),
+            value,
+            ...qna.questions.slice(count + 1)
+          ]
+        });
+
+      }
+
+      function deleteQuestion() {
+        if(maxCount!=-1) {
+            setQnA({
+                ...qna,
+                questions: [
+                  ...qna.questions.slice(0, count),
+                  ...qna.questions.slice(count + 1)
+                ],
+                answers: [
+                    ...qna.answers.slice(0, count),
+                    ...qna.answers.slice(count + 1)
+                ]
+              });
+    
+            setMaxCount(maxCount-1);
+            setCount(Math.max(0, count-1));
+        }
+        
+      }
    
     var data = () => { }
     var color = '#3F206F'
@@ -50,9 +94,9 @@ export default function TestPagePreview(){
             return (
                 <>
                     <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%' }}>
-                        <div style={{ paddingBottom: '15px', fontSize: '25px' }}>Welcome To The Test Section</div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>You Are Being Recorded.</div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Please Grant Access To Your Mic And Camera</div>
+                        <div style={{ paddingBottom: '15px', fontSize: '25px' }}>Welcome To The Test Creation Section</div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter questions and answers in the next section.</div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Answers will be used to evaluate user response.</div>
                     </div>
                 </>
             )
@@ -66,7 +110,7 @@ export default function TestPagePreview(){
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Question {count}</th>
                     </tr>
                     <tr>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{qna.questions[count]}</th>
+                        <textarea style={{display: 'block', width: '80%', marginLeft: '10px'}} className="questionNote" id="questionZone" value={qna.questions[count]} rows={2} cols={40} onChange={updateQuestions}/>
                     </tr>
                     <tr>
                         <textarea style={{display: 'block', width: '80%', marginLeft: '10px'}} className="textNote" id="textZone" value={qna.answers[count]} rows={10} cols={40} onChange={updateAnswers}/>
@@ -88,7 +132,7 @@ export default function TestPagePreview(){
 
                 }
             });
-        
+
     }, [""]);
 
     const navigateMe = () => {
@@ -100,10 +144,10 @@ export default function TestPagePreview(){
         }
     }
 
-    var endTestText = 'Start Test'
+    var endTestText = 'Create Test'
 
     if (endTest) {
-        endTestText = 'End Test'
+        endTestText = 'Submit Test'
     }
     return (
         <>
@@ -121,6 +165,7 @@ export default function TestPagePreview(){
                         {render > 0 &&
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", marginRight: '20px' }}>
                                 <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { incrementCount() }}>Next Question</div>
+                                <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { deleteQuestion() }}>Delete Question</div>
                                 <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { decrementCount() }}>Previous Question</div>
                             </div>
                         }
