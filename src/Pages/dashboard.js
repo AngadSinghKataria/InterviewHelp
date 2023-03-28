@@ -31,7 +31,6 @@ export default function Dashboard(){
 
     const [render, setRender] = useState(0)
     const [jobdata, setJobData] = useState({})
-    const [testdata, setTestData] = useState({})
     const navigate = useNavigate()
     var data = () => { }
 
@@ -126,11 +125,6 @@ export default function Dashboard(){
         }
     }
 
-    useEffect(() => {
-        fetch('http://127.0.0.1:5000/jobs')
-            .then(response => response.json())
-            .then(data => setJobData(data));
-    }, []);
 
     return (
         <>
