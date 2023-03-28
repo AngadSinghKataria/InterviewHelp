@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import sqlite3
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
+from resumeScreening import MatchResume
 
 import os
 app = Flask(__name__)
@@ -202,6 +203,14 @@ def upload_file():
     target_file = os.path.join(target_folder, filename)
     file.save(target_file)
     return 'File uploaded successfully'
+    
+
+@app.route('/resumeScreening', methods=['POST'])
+def resume_screening():
+    jd_file_path = request.files['jd_file']
+    resume_file_path = request.files['resume_file']
+    match_score = MatchResume(resume_file_path, jd_file_path)
+    return jsonify(match_score=match_score)
 
 
 if __name__ == '__main__':
