@@ -229,7 +229,7 @@ def get_test():
         data = request.get_json()
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        c.execute('SELECT * FROM questions WHERE job_id='+str(data["jobId"]))
+        c.execute('SELECT * FROM questions WHERE job_id='+data["jobId"])
         jobs = []
         for row in c.fetchall():
             job = {

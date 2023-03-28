@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import Header from "../Components/Header/Header"
 import Text from "../Components/text"
 // const webgazer =  require('webgazer')
 
 const webgazer = window.webgazer
 
-export default function TestPage({route}) {
-    const { jobid } = route.params;
+export default function TestPage() {
+    const { jobid } = useLocation();
+    console.log("JOBID: ",jobid)
     const [render, setRender] = useState(0)
     const [endTest, setEndTest] = useState(false)
     const [qna, setQnA] = useState({
@@ -18,7 +19,7 @@ export default function TestPage({route}) {
 
     useEffect(() => {
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ jobId: jobid })
         };
