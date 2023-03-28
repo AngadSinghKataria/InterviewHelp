@@ -254,6 +254,7 @@ def submit_test():
             for i in questions:
                 c.execute('INSERT INTO answers (question_id, answer_text, user_id) VALUES (?, ?, ?, ?)',
                         (i["questionId"], i["answer"], 0))
+                conn.commit()
             conn.close()
             return jsonify({"data": "Inserted Successfully!"})
         except:
