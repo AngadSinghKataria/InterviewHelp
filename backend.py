@@ -197,6 +197,13 @@ def delete_job(job_id):
 
 ################################################################################################################################################
 
+def convertBinarytoFile(title, file):
+    bytes_data = bytes(file)
+    target_path = 'src/Components/DownloadedFiles/'
+    with open(target_path+f'{title}.pdf', 'wb') as f:
+        f.write(bytes_data)
+    return target_path+f'{title}.pdf'
+
 @app.route('/getjobs', methods=['GET'])
 def get_jobs():
     conn = sqlite3.connect('database.db')
@@ -207,14 +214,14 @@ def get_jobs():
         job = {
             'id': row[0],
             'title': row[1],
-            'description': row[2],
+            'description': convertBinarytoFile(row[1],row[2]),
             'company': row[3],
             'location': row[4],
             'salary': row[5],
         }
         jobs.append(job)
     conn.close()
-    return jsonify(jobs)
+    return json.dumps(jobs)
 
 @app.route('/gettest', methods=['POST'])
 def get_test():

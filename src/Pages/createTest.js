@@ -86,6 +86,7 @@ export default function CreateTest() {
             ...qna.answers.slice(count + 1)
           ]
         });
+        console.log(setQnA);
       }
 
       function updateQuestions(event) {
@@ -98,7 +99,7 @@ export default function CreateTest() {
             ...qna.questions.slice(count + 1)
           ]
         });
-
+        console.log(setQnA);
       }
 
       function updateJobTitle(event) {
