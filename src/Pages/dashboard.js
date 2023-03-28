@@ -34,6 +34,13 @@ export default function Dashboard(){
     const [testdata, setTestData] = useState({})
     const navigate = useNavigate()
     var data = () => { }
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/getjobs')
+            .then(response => response.json())
+            .then(data => setJobData(data));
+    }, []);
+
     if (render == 0) {
         data = () => {
             return (
@@ -86,12 +93,12 @@ export default function Dashboard(){
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', width: '50%' }}>Proceed To Test</th>
                     </tr>
                     <tr>
-                        {jobdata.map(jobdata =>
+                        {jobdata.map(x =>
                             < tr >
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>jobdata.Company</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>jobdata.Title</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>jobdata.TestId</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test', {testid:jobdata.testid}) }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.Company</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.Title</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.TestId</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test', {testid:x.testid}) }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
                             </tr>
                         )}
                     </tr>

@@ -6,14 +6,14 @@ import Text from "../Components/text"
 
 const webgazer = window.webgazer
 
-export default function TestPage() {
-
+export default function TestPage({route}) {
+    const { testid } = route.params;
     const [render, setRender] = useState(0)
     const [option, setOption] = useState(0)
     const [endTest, setEndTest] = useState(false)
     const [qna, setQnA] = useState({
-        questions: ['Tell me about yourself?', 'why are you applying?', 'what position are you applying for?'],
-        answers: ['','','']
+        questions: [],
+        answers: []
     });
     const [count, setCount] = useState(0);
     const navigate = useNavigate()
@@ -77,11 +77,11 @@ export default function TestPage() {
     }
     useEffect(() => {
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ TestId: '1011' })
         };
-        fetch('https://reqres.in/api/posts', requestOptions)
+        fetch('http://127.0.0.1:5000/gettest', requestOptions)
             .then(response => response.json())
             .then(data => {
                 for (let i = 0; i < data.length; i++) {

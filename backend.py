@@ -261,7 +261,7 @@ if __name__ == '__main__':
     c.execute('CREATE TABLE IF NOT EXISTS tests (id INTEGER PRIMARY KEY, name TEXT, job_id INTEGER)')
     c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY, test_id INTEGER, question TEXT, qustion_id INTEGER)')
     c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY, question_id INTEGER, answer_text TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, question_id INTEGER NOT NULL, option_id INTEGER NOT NULL)')
+    c.execute('CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, question_id INTEGER NOT NULL, option_id INTEGER NOT NULL, user_id INTEGER)')
     c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score INTEGER NOT NULL)')
     # c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  companyname TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL, jobdescriptionfile BLOB NOT NULL)')
