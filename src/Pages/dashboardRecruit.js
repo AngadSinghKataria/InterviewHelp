@@ -49,7 +49,7 @@ export default function DashboardAdmin() {
                     <tr>
                         <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Front End Dev</td>
                         <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>80</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}><input type="file" onChange={handleFileSelection} /><button onClick={() => { handleFileSubmission() }}>Submit</button></td>
+                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
                     </tr>
                     <tr>
                         <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Back End Dev</td>

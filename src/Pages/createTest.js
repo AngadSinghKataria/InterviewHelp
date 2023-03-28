@@ -171,7 +171,7 @@ export default function CreateTest() {
         data = () => {
             return (
                 <>
-                    <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%', paddingBottom: '75%'}}>
+                    <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%', paddingBottom: '40%'}}>
                         <div style={{ paddingBottom: '1px', fontSize: '25px' }}>Welcome To The Test Creation Section</div>
                         <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Job Title: 
                             <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="text" placeholder='Job Title' onChange={updateJobTitle} value={job.jobtitle}/>
