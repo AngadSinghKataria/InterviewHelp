@@ -216,25 +216,24 @@ def get_jobs():
     conn.close()
     return jsonify(jobs)
 
-@app.route('/gettest', methods=['GET'])
+@app.route('/gettest', methods=['POST'])
 def get_test():
-    conn = sqlite3.connect('database.db')
-    c = conn.cursor()
-    c.execute('SELECT ')
-    jobs = []
-    for row in c.fetchall():
-        job = {
-            'id': row[0],
-            'title': row[1],
-            'description': row[2],
-            'company': row[3],
-            'location': row[4],
-            'salary': row[5],
-            'testid': row[6]
-        }
-        jobs.append(job)
-    conn.close()
-    return jsonify(jobs)
+    if request.method=="POST":
+        data = request.get_json()
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+        c.execute('SELECT * FROM questions WHERE job_id='+str(data["jobId"]))
+        jobs = []
+        for row in c.fetchall():
+            job = {
+                'id': row[0],
+                'job_id': row[1],
+                'question': row[2],
+                'answer': row[3],
+            }
+            jobs.append(job)
+        conn.close()
+        return jsonify(jobs)
 
 @app.route('/uploadfile', methods=['POST'])
 def upload_file():
