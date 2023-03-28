@@ -9,11 +9,9 @@ const webgazer = window.webgazer
 export default function TestPage({route}) {
     const { jobid } = route.params;
     const [render, setRender] = useState(0)
-    const [option, setOption] = useState(0)
     const [endTest, setEndTest] = useState(false)
     const [qna, setQnA] = useState({
-        questions: [],
-        answers: []
+        questions: []
     });
     const [count, setCount] = useState(0);
     const navigate = useNavigate()
@@ -22,14 +20,24 @@ export default function TestPage({route}) {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ TestId: jobid })
+            body: JSON.stringify({ jobId: jobid })
         };
         fetch('http://127.0.0.1:5000/gettest', requestOptions)
             .then(response => response.json())
             .then(data => {
+                var q=[]
                 for (let i = 0; i < data.length; i++) {
-
+                    q.push({
+                        questionId: data[i].id,
+                        question: data[i].question,
+                        answer: ''
+                    });
                 }
+
+                setQnA({
+                    ...qna,
+                    questions:q,
+                })
             });
             const onLoadWindow = async function () {
 
@@ -85,10 +93,10 @@ export default function TestPage({route}) {
         const value = event.target.value;
         setQnA({
           ...qna,
-          answers: [
-            ...qna.answers.slice(0, count),
-            value,
-            ...qna.answers.slice(count + 1)
+          questions: [
+            ...qna.questions.slice(0, count),
+            Object.assign({}, qna[count], {answer: value} ),
+            ...qna.questions.slice(count + 1)
           ]
         });
       }
@@ -119,10 +127,10 @@ export default function TestPage({route}) {
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Question {count}</th>
                     </tr>
                     <tr>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{qna.questions[count]}</th>
+                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{qna.questions[count].question}</th>
                     </tr>
                     <tr>
-                        <textarea style={{display: 'block', width: '80%', marginLeft: '10px'}} className="textNote" id="textZone" value={qna.answers[count]} rows={10} cols={40} onChange={updateAnswers}/>
+                        <textarea style={{display: 'block', width: '80%', marginLeft: '10px'}} className="textNote" id="textZone" value={qna.questions[count].answer} rows={10} cols={40} onChange={updateAnswers}/>
                     </tr>
                 </table>
             )
@@ -165,7 +173,6 @@ export default function TestPage({route}) {
                                 <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { decrementCount() }}>Previous Question</div>
                             </div>
                         }
-
                     </div>
                     <div style={{ width: '60%', textAlign: 'center', background: 'green', padding: '2%', marginTop: '90px', color: 'white', fontSize: '30px' }} onClick={() => { navigateMe() }}>{endTestText}</div>
                 </div>
