@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify
 import sqlite3
 from werkzeug.utils import secure_filename
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route('/users', methods=['GET', 'POST'])
 def users():
@@ -82,14 +86,7 @@ def get_questions(test_id):
     for row in rows:
         question_id = row[2]
         question = row[1]
-        c.execute('SELECT question_id, option_text, is_correct FROM options WHERE question_id = ?', (question_id,))
-        option_rows = c.fetchall()
-        options = []
-        for option_row in option_rows:
-            option_text = option_row[1]
-            is_correct = option_row[2]
-            options.append({ 'option_text': option_text, 'is_correct': bool(is_correct)})
-        questions.append({'id': question_id, 'question': question, 'options': options})
+        questions.append({'id': question_id, 'question': question})
     conn.close()
     return jsonify(questions)
 
