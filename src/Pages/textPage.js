@@ -142,7 +142,24 @@ export default function TestPage({route}) {
 
     const navigateMe = () => {
         if (endTest) {
-            window.location.href = '/dashboard'
+            fetch('http://127.0.0.1:5000/submittest', {
+                method: 'POST',
+                body: JSON.stringify({
+                    questions: qna.questions,
+                    jobId: jobid
+                }),
+                headers: {
+                   'Content-type': 'application/json; charset=UTF-8',
+                },
+             })
+                .then((res) => res.json())
+                .then((data) => {
+                   console.log(data);
+                   navigate('/dashboard');
+                })
+                .catch((err) => {
+                   console.log(err.message);
+                });
         } else {
             setRender(1)
             setEndTest(true)
