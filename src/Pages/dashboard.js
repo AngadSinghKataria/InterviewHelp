@@ -4,7 +4,30 @@ import Header from "../Components/Header/Header"
 import Text from "../Components/text"
 
 
-export default function Dashboard() {
+export default function Dashboard(){
+
+    const selected_jd_file = '';
+    const selected_resume_file = '';
+
+    const resumeJdMatchScoreCal = () => {
+        const formData = new FormData();
+        formData.append('jd_file', selected_jd_file);
+        formData.append('resume_file', selected_resume_file);
+        fetch(
+            'http://127.0.0.1:5000/resumeScreening',
+            {
+                method: 'POST',
+                body: formData,
+            }
+        )
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('Success:', result);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
 
     const [render, setRender] = useState(0)
     const [jobdata, setJobData] = useState({})
@@ -21,13 +44,32 @@ export default function Dashboard() {
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Test Score</th>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job description</th>
                         <th style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Status</th>
+                        <th style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>JD vs Resume Match Score</th>
                     </tr>
                     <tr>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Amazon</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Front End Dev</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>80%</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Shortlisted</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Amazon</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Front End Dev</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white'}}>Link</td>
+                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>Shortlisted</td>
+                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>55</td>
+                    </tr>
+                    <tr>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Google</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Front End Dev</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white'}}>Link</td>
+                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>Not Shortlisted</td>
+                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>55</td>
+                    </tr>
+                    <tr>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Microsoft</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Front End Dev</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white'}}>Link</td>
+                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>Shortlisted</td>
+                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>55</td>
+
                     </tr>
                 </table>
             )
