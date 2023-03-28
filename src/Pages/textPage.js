@@ -7,7 +7,7 @@ import Text from "../Components/text"
 const webgazer = window.webgazer
 
 export default function TestPage({route}) {
-    const { testid } = route.params;
+    const { jobid } = route.params;
     const [render, setRender] = useState(0)
     const [option, setOption] = useState(0)
     const [endTest, setEndTest] = useState(false)
@@ -17,6 +17,59 @@ export default function TestPage({route}) {
     });
     const [count, setCount] = useState(0);
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ TestId: jobid })
+        };
+        fetch('http://127.0.0.1:5000/gettest', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {
+
+                }
+            });
+            const onLoadWindow = async function () {
+
+                var begin = false
+                //start the webgazer tracker
+                await webgazer.setRegression('ridge') /* currently must set regression and tracker */
+                    //.setTracker('clmtrackr')
+                    .setGazeListener(function (data, clock) {
+                        begin = true
+                        if (data == null && begin) {
+                            // alert("No Faces Detected ! Reporting!")
+                        }
+                    })
+                    .saveDataAcrossSessions(true)
+                    .begin();
+                webgazer.showVideoPreview(true) /* shows all video previews */
+                    .showPredictionPoints(false) /* shows a square every 100 milliseconds where current prediction is */
+                    .applyKalmanFilter(true); /* Kalman Filter defaults to on. Can be toggled by user. */
+    
+                //Set up the webgazer video feedback.
+                // var setup = function() {
+    
+                //     //Set up the main canvas. The main canvas is used to calibrate the webgazer.
+                //     var canvas = document.getElementById("plotting_canvas");
+                //     canvas.width = window.innerWidth;
+                //     canvas.height = window.innerHeight;
+                //     canvas.style.position = 'fixed';
+                // };
+                // setup();
+                // webgazer.setGazeListener(function(data, foo) {
+                //     if (data == null  && webgazer.isReady()) {
+                //         alert(data);
+                //     }
+                // }).begin();        
+                console.log("executed only once!");
+    
+            };
+            onLoadWindow()
+        }, [""]);
+
     const incrementCount = () => {
         
         setCount(Math.min(count+1,qna.questions.length-1));
@@ -75,58 +128,9 @@ export default function TestPage({route}) {
             )
         }
     }
-    useEffect(() => {
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ TestId: '1011' })
-        };
-        fetch('http://127.0.0.1:5000/gettest', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                for (let i = 0; i < data.length; i++) {
+    
 
-                }
-            });
-
-        const onLoadWindow = async function () {
-
-            var begin = false
-            //start the webgazer tracker
-            await webgazer.setRegression('ridge') /* currently must set regression and tracker */
-                //.setTracker('clmtrackr')
-                .setGazeListener(function (data, clock) {
-                    begin = true
-                    if (data == null && begin) {
-                        // alert("No Faces Detected ! Reporting!")
-                    }
-                })
-                .saveDataAcrossSessions(true)
-                .begin();
-            webgazer.showVideoPreview(true) /* shows all video previews */
-                .showPredictionPoints(false) /* shows a square every 100 milliseconds where current prediction is */
-                .applyKalmanFilter(true); /* Kalman Filter defaults to on. Can be toggled by user. */
-
-            //Set up the webgazer video feedback.
-            // var setup = function() {
-
-            //     //Set up the main canvas. The main canvas is used to calibrate the webgazer.
-            //     var canvas = document.getElementById("plotting_canvas");
-            //     canvas.width = window.innerWidth;
-            //     canvas.height = window.innerHeight;
-            //     canvas.style.position = 'fixed';
-            // };
-            // setup();
-            // webgazer.setGazeListener(function(data, foo) {
-            //     if (data == null  && webgazer.isReady()) {
-            //         alert(data);
-            //     }
-            // }).begin();        
-            console.log("executed only once!");
-
-        };
-        onLoadWindow()
-    }, [""]);
+        
 
     const navigateMe = () => {
         if (endTest) {
