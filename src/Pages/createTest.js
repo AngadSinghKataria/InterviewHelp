@@ -10,6 +10,13 @@ export default function CreateTest() {
     const [render, setRender] = useState(0)
     const [option, setOption] = useState(0)
     const [endTest, setEndTest] = useState(false)
+    const [job, setJob] = useState({
+        jobtitle: "",
+        company: "",
+        location: "",
+        salary: "",
+        jobdescription: null
+    });
     const [qna, setQnA] = useState({
         questions: [],
         answers: []
@@ -64,6 +71,47 @@ export default function CreateTest() {
 
       }
 
+      function updateJobTitle(event) {
+        const value = event.target.value;
+        setJob({
+          ...job,
+            jobtitle: value
+        });
+      }
+
+      function updateCompany(event) {
+        const value = event.target.value;
+        setJob({
+          ...job,
+            company: value
+        });
+      }
+
+      function updateLocation(event) {
+        const value = event.target.value;
+        setJob({
+          ...job,
+            location: value
+        });
+      }
+
+      function updateSalary(event) {
+        const value = event.target.value;
+        setJob({
+          ...job,
+            salary: value
+        });
+      }
+
+      function updateJobDescription(event) {
+        const value = event.target.value;
+        setJob({
+          ...job,
+            jobdescription: value
+        });
+      }
+      
+
       function deleteQuestion() {
         if(maxCount!=-1) {
             setQnA({
@@ -94,9 +142,22 @@ export default function CreateTest() {
             return (
                 <>
                     <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%' }}>
-                        <div style={{ paddingBottom: '15px', fontSize: '25px' }}>Welcome To The Test Creation Section</div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter questions and answers in the next section.</div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Answers will be used to evaluate user response.</div>
+                        <div style={{ paddingBottom: '1px', fontSize: '25px' }}>Welcome To The Test Creation Section</div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Job Title: 
+                            <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="text" placeholder='Job Title' onChange={updateJobTitle} value={job.jobtitle}/>
+                        </div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Company Name: 
+                            <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="text" placeholder='Company' onChange={updateCompany} value={job.company}/>
+                        </div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Location: 
+                            <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="text" placeholder='Location' onChange={updateLocation} value={job.location}/>
+                        </div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Salary: 
+                            <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="text" placeholder='Salary' onChange={updateSalary} value={job.salary}/>
+                        </div>
+                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Job Description: 
+                            <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="file" placeholder='Job Description' onChange={updateJobDescription} value={job.jobdescription}/>
+                        </div>
                     </div>
                 </>
             )
@@ -160,7 +221,7 @@ export default function CreateTest() {
                     <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/') }}>Sign Out</div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>
-                    <div style={{ height: 'max-content', width: '80%', borderRadius: '25px', backgroundColor: 'white', paddingLeft: '5%', paddingTop: '1%', }}>
+                    <div style={{ height: 'max-content', width: '80%', borderRadius: '25px', backgroundColor: 'white', paddingLeft: '5%', paddingTop: '1%', height: '80vh' }}>
                         {data()}
                         {render > 0 &&
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", marginRight: '20px' }}>
@@ -169,9 +230,9 @@ export default function CreateTest() {
                                 <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { decrementCount() }}>Previous Question</div>
                             </div>
                         }
-
+                        <div style={{ width: '60%', textAlign: 'center', background: 'green', padding: '2%', marginTop: '350px', color: 'white', fontSize: '30px' }} onClick={() => { navigateMe() }}>{endTestText}</div>
                     </div>
-                    <div style={{ width: '60%', textAlign: 'center', background: 'green', padding: '2%', marginTop: '90px', color: 'white', fontSize: '30px' }} onClick={() => { navigateMe() }}>{endTestText}</div>
+                    
                 </div>
             </div>
         </>
