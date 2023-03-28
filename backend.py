@@ -195,6 +195,29 @@ def delete_job(job_id):
     return jsonify({'message': 'Job deleted successfully'})
 
 
+################################################################################################################################################
+
+@app.route('/getjobs', methods=['GET'])
+def get_jobs():
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute('SELECT jobs.id, title, description, company, location, salary, tests.id FROM jobs INNER JOIN tests ON tests.job_id=jobs.id')
+    jobs = []
+    for row in c.fetchall():
+        job = {
+            'id': row[0],
+            'title': row[1],
+            'description': row[2],
+            'company': row[3],
+            'location': row[4],
+            'salary': row[5],
+            'testid': row[6]
+        }
+        jobs.append(job)
+    conn.close()
+    return jsonify(jobs)
+
+
 @app.route('/uploadfile', methods=['POST'])
 def upload_file():
     target_folder = 'src\Components\JobDescriptions'
