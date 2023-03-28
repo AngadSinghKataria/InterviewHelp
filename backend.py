@@ -3,6 +3,7 @@ import sqlite3
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
 
+import os
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -193,9 +194,9 @@ def delete_job(job_id):
     return jsonify({'message': 'Job deleted successfully'})
 
 
-@app.route('/uploadfile', methods=['DELETE'])
+@app.route('/uploadfile', methods=['POST'])
 def upload_file():
-    target_folder = request.form['target_folder']
+    target_folder = 'src\Components\JobDescriptions'
     file = request.files['file']
     filename = secure_filename(file.filename)
     target_file = os.path.join(target_folder, filename)
