@@ -120,7 +120,7 @@ export default function Dashboard(){
     }
 
     useEffect(() => {
-        fetch('/jobs')
+        fetch('http://127.0.0.1:5000/jobs')
             .then(response => response.json())
             .then(data => setJobData(data));
     }, []);
