@@ -6,9 +6,8 @@ import Text from "../Components/text"
 
 const webgazer = window.webgazer
 
-export default function TestPage() {
-    const { jobid } = useLocation();
-    console.log("JOBID: ",jobid)
+export default function TestPage({ route, navigation }) {
+    const jobId = localStorage.getItem('jobId');
     const [render, setRender] = useState(0)
     const [endTest, setEndTest] = useState(false)
     const [qna, setQnA] = useState({
@@ -21,7 +20,7 @@ export default function TestPage() {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ jobId: jobid })
+            body: JSON.stringify({ jobId: jobId })
         };
         fetch('http://127.0.0.1:5000/gettest', requestOptions)
             .then(response => response.json())
@@ -147,7 +146,7 @@ export default function TestPage() {
                 method: 'POST',
                 body: JSON.stringify({
                     questions: qna.questions,
-                    jobId: jobid
+                    jobId: jobId
                 }),
                 headers: {
                    'Content-type': 'application/json; charset=UTF-8',

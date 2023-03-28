@@ -77,7 +77,7 @@ export default function Dashboard(){
                                 < tr >
                                 <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.company}</td>
                                 <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.title}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test', {jobid:x.id}) }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { localStorage.setItem('jobId', x.id); navigate('/test') }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
                             </tr>
                             )
                         })}
