@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import sqlite3
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -193,6 +194,16 @@ def delete_job(job_id):
     conn.commit()
     conn.close()
     return jsonify({'message': 'Job deleted successfully'})
+
+
+@app.route('/uploadfile', methods=['DELETE'])
+def upload_file():
+    target_folder = request.form['target_folder']
+    file = request.files['file']
+    filename = secure_filename(file.filename)
+    target_file = os.path.join(target_folder, filename)
+    file.save(target_file)
+    return 'File uploaded successfully'
 
 
 if __name__ == '__main__':
