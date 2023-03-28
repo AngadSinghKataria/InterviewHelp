@@ -312,11 +312,16 @@ def upload_jd():
 if __name__ == '__main__':
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, email TEXT, accountType TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY, job_id INTEGER, question TEXT, answer TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY, question_id INTEGER, answer_text TEXT, user_id INTEGER)')
+    c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, accountType TEXT, resume BLOB NOT NULL)')
+    c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER, question TEXT, answer TEXT)')
+    c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY AUTOINCREMENT, question_id INTEGER, answer_text TEXT, user_id INTEGER)')
     c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score INTEGER NOT NULL)')
     # c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  companyname TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL, jobdescriptionfile BLOB NOT NULL)')
+    with open('src/Components/CVs/Angad_Singh_Kataria_CV.pdf', 'rb') as file:
+        resume = file.read()
+    c.execute('INSERT INTO users (name,email,accountType,resume) VALUES (?,?,?,?)',
+           ('Abhinav', 'abhinav@gmail.com', 'student', resume))
+    conn.commit()
     conn.close()
     app.run(debug=True)
