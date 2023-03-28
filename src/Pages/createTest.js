@@ -14,9 +14,12 @@ export default function CreateTest() {
         jobtitle: "",
         company: "",
         location: "",
-        salary: "",
-        jobdescription: null
+        salary: ""
     });
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [fileName, setFileName] = useState('');
+
+
     const [qna, setQnA] = useState({
         questions: [],
         answers: []
@@ -24,6 +27,8 @@ export default function CreateTest() {
     const [count, setCount] = useState(0);
     const [maxCount, setMaxCount] = useState(-1);
     const navigate = useNavigate()
+    
+
     
     const incrementCount = () => {    
         setCount(count+1);
@@ -45,6 +50,30 @@ export default function CreateTest() {
             setCount(count - 1);
         }
     };
+
+    function handleFileSelection(event) {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+        setFileName(file.name);
+      }
+      const handleFileSubmission = () => {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        fetch(
+          'http://127.0.0.1:5000/upload_jd',
+          {
+            method: 'POST',
+            body: formData,
+          }
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            console.log('Success:', result);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      };
 
     function updateAnswers(event) {
         const value = event.target.value;
@@ -180,21 +209,8 @@ export default function CreateTest() {
             )
         }
     }
-    useEffect(() => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ TestId: '1011' })
-        };
-        fetch('https://reqres.in/api/posts', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                for (let i = 0; i < data.length; i++) {
 
-                }
-            });
 
-    }, [""]);
 
     const navigateMe = () => {
         if (endTest) {

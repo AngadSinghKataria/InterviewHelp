@@ -237,6 +237,22 @@ def resume_screening():
     match_score = MatchResume(resume_file_path, jd_file_path)
     return jsonify(match_score=match_score)
 
+@app.route('/upload_jd', methods=['POST'])
+def upload_jd():
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    job_title = request.json['job_title']
+    company_name = request.json['company_name']
+    location = request.json['location']
+    salary = request.json['salary']
+    job_Description_file = request.files['job_Description_file']
+    c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
+              (job_title, company_name, location, salary, job_Description_file))
+    conn.commit()
+    conn.close()
+    return jsonify({'message': 'JD uploaded created successfully'})
+
+
 
 if __name__ == '__main__':
     conn = sqlite3.connect('database.db')
@@ -245,8 +261,9 @@ if __name__ == '__main__':
     c.execute('CREATE TABLE IF NOT EXISTS tests (id INTEGER PRIMARY KEY, name TEXT, job_id INTEGER)')
     c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY, test_id INTEGER, question TEXT, qustion_id INTEGER)')
     c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY, question_id INTEGER, answer_text TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, question_id INTEGER NOT NULL, option_id INTEGER NOT NULL, user_id INTEGER PRIMARY KEY)')
+    c.execute('CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, question_id INTEGER NOT NULL, option_id INTEGER NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score INTEGER NOT NULL)')
-    c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
+    # c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
+    c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  companyname TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL, jobdescriptionfile BLOB NOT NULL)')
     conn.close()
     app.run(debug=True)
