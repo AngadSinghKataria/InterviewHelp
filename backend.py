@@ -201,7 +201,26 @@ def delete_job(job_id):
 def get_jobs():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    c.execute('SELECT jobs.id, title, description, company, location, salary, tests.id FROM jobs INNER JOIN tests ON tests.job_id=jobs.id')
+    c.execute('SELECT id, title, jobdescriptionfile, companyname, location, salary FROM jobs')
+    jobs = []
+    for row in c.fetchall():
+        job = {
+            'id': row[0],
+            'title': row[1],
+            'description': row[2],
+            'company': row[3],
+            'location': row[4],
+            'salary': row[5],
+        }
+        jobs.append(job)
+    conn.close()
+    return jsonify(jobs)
+
+@app.route('/gettest', methods=['GET'])
+def get_test():
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute('SELECT ')
     jobs = []
     for row in c.fetchall():
         job = {
@@ -216,7 +235,6 @@ def get_jobs():
         jobs.append(job)
     conn.close()
     return jsonify(jobs)
-
 
 @app.route('/uploadfile', methods=['POST'])
 def upload_file():
@@ -237,6 +255,7 @@ def resume_screening():
     match_score = MatchResume(resume_file_path, jd_file_path)
     return jsonify(match_score=match_score)
 
+
 @app.route('/upload_jd', methods=['POST'])
 def upload_jd():
     conn = sqlite3.connect('database.db')
@@ -256,11 +275,10 @@ if __name__ == '__main__':
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, email TEXT, accountType TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS tests (id INTEGER PRIMARY KEY, name TEXT, job_id INTEGER)')
-    c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY, test_id INTEGER, question TEXT, qustion_id INTEGER)')
-    c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY, question_id INTEGER, answer_text TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, question_id INTEGER NOT NULL, option_id INTEGER NOT NULL)')
-    c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, test_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score INTEGER NOT NULL)')
+    c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY, job_id INTEGER, question TEXT, answer TEXT)')
+    c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY, question_id INTEGER, answer_text TEXT, user_id INTEGER)')
+    c.execute('CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER NOT NULL, question_id INTEGER NOT NULL, answer_id INTEGER NOT NULL, user_id INTEGER)')
+    c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score INTEGER NOT NULL)')
     # c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  companyname TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL, jobdescriptionfile BLOB NOT NULL)')
     conn.close()

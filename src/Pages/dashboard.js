@@ -31,9 +31,15 @@ export default function Dashboard(){
 
     const [render, setRender] = useState(0)
     const [jobdata, setJobData] = useState({})
-    const [testdata, setTestData] = useState({})
     const navigate = useNavigate()
     var data = () => { }
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:5000/getjobs')
+            .then(response => response.json())
+            .then(data => setJobData(data));
+    }, []);
+
     if (render == 0) {
         data = () => {
             return (
@@ -41,7 +47,6 @@ export default function Dashboard(){
                     <tr onClick={() => { setRender(2) }}>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Company  </th>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Test Score</th>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job description</th>
                         <th style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Status</th>
                         <th style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>JD vs Resume Match Score</th>
@@ -49,27 +54,9 @@ export default function Dashboard(){
                     <tr>
                         <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Amazon</td>
                         <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Front End Dev</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
                         <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white'}}>Link</td>
                         <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>Shortlisted</td>
                         <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>55</td>
-                    </tr>
-                    <tr>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Google</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Front End Dev</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white'}}>Link</td>
-                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>Not Shortlisted</td>
-                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>55</td>
-                    </tr>
-                    <tr>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Microsoft</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>Front End Dev</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white'}}>Link</td>
-                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>Shortlisted</td>
-                        <td style={{border: '1px', textAlign: "center",padding: '8px', fontSize: '15px'}}>55</td>
-
                     </tr>
                 </table>
             )
@@ -86,12 +73,12 @@ export default function Dashboard(){
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', width: '50%' }}>Proceed To Test</th>
                     </tr>
                     <tr>
-                        {jobdata.map(jobdata =>
+                        {jobdata.map(x =>
                             < tr >
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>jobdata.Company</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>jobdata.Title</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>jobdata.TestId</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test', {testid:jobdata.testid}) }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.Company</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.Title</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.TestId</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test', {jobid:x.id}) }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
                             </tr>
                         )}
                     </tr>
@@ -107,23 +94,20 @@ export default function Dashboard(){
                     <tr onClick={() => { setRender(2) }}>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Company  </th>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job</th>
+                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Test Score</th>
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', width: '50%' }}>Status</th>
                     </tr>
                     <tr>
                         <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Amazon</td>
                         <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Front End Dev</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test') }}>Not Selected</td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}}>80%</td>
+                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} >Not Selected</td>
                     </tr>
                 </table>
             )
         }
     }
 
-    useEffect(() => {
-        fetch('http://127.0.0.1:5000/jobs')
-            .then(response => response.json())
-            .then(data => setJobData(data));
-    }, []);
 
     return (
         <>
