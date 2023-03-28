@@ -3,7 +3,7 @@ import sqlite3
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
 from resumeScreening import MatchResume
-
+import json
 import os
 app = Flask(__name__)
 cors = CORS(app)
@@ -260,11 +260,15 @@ def resume_screening():
 def upload_jd():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    job_title = request.form.get('jobdetails')
-    print(job_title)
+    jobData = json.loads(request.form.get('jobdetails'))
+    jobtitle = jobData['jobtitle']
+    companyname = jobData['company']
+    location = jobData['location']
+    salary = int(jobData['salary'])
     job_Description_file = request.files['file']
-    # c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
-    #           (job_title, company_name, location, salary, job_Description_file))
+    job_description_data = job_Description_file.read()
+    c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
+           (jobtitle, companyname, location, salary, job_description_data))
     conn.commit()
     conn.close()
     return jsonify({'message': 'JD uploaded created successfully'})

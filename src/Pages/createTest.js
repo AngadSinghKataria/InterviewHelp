@@ -58,7 +58,7 @@ export default function CreateTest() {
       }
       const handleFileSubmission = () => {
         const formData = new FormData();
-        formData.append('jobdetails', job);
+        formData.append('jobdetails', JSON.stringify(job));
         formData.append('file', selectedFile);
         fetch(
           'http://127.0.0.1:5000/upload_jd',
@@ -171,7 +171,7 @@ export default function CreateTest() {
         data = () => {
             return (
                 <>
-                    <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%' }}>
+                    <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%', paddingBottom: '75%'}}>
                         <div style={{ paddingBottom: '1px', fontSize: '25px' }}>Welcome To The Test Creation Section</div>
                         <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Job Title: 
                             <input style={{width: '100%', height: '40px',padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none'}} type="text" placeholder='Job Title' onChange={updateJobTitle} value={job.jobtitle}/>
@@ -247,7 +247,7 @@ export default function CreateTest() {
                                 <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { decrementCount() }}>Previous Question</div>
                             </div>
                         }
-                        <div style={{ width: '60%', textAlign: 'center', background: 'green', padding: '2%', marginTop: '350px', color: 'white', fontSize: '30px' }} onClick={() => { navigateMe(); handleFileSubmission()}}>{endTestText}</div>
+                        <div style={{ width: '60%', textAlign: 'center', background: 'green', padding: '2%', marginTop: '20px', color: 'white', fontSize: '30px' }} onClick={() => { navigateMe(); handleFileSubmission()}}>{endTestText}</div>
                     </div>
                     
                 </div>
