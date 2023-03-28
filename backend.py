@@ -220,9 +220,11 @@ def get_jobs():
 
 @app.route('/uploadfile', methods=['POST'])
 def upload_file():
-    target_folder = 'src\Components\JobDescriptions'
+    target_folder = 'src/Components/CVs/'
     file = request.files['file']
+    print(file)
     filename = secure_filename(file.filename)
+    print(filename)
     target_file = os.path.join(target_folder, filename)
     file.save(target_file)
     return 'File uploaded successfully'

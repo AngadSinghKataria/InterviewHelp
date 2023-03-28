@@ -19,7 +19,7 @@ export default function DashboardAdmin() {
     }
     const handleFileSubmission = () => {
         const formData = new FormData();
-        formData.append('File', selectedFile);
+        formData.append('file', selectedFile);
         fetch(
             'http://127.0.0.1:5000/uploadfile',
             {
