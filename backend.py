@@ -298,7 +298,7 @@ def upload_jd():
     c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
            (jobtitle, companyname, location, salary, job_description_data))
     conn.commit()
-    c.execute('SELECT id FROM jobs where title='+jobtitle)
+    c.execute("SELECT id FROM jobs where title='"+jobtitle+"'")
     id = c.fetchall()[0]
     for i in range(len(questions)):
         c.execute('INSERT INTO questions (job_id, question, answer) VALUES (?, ?, ?)',
