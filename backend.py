@@ -223,13 +223,31 @@ def get_jobs():
     conn.close()
     return json.dumps(jobs)
 
+@app.route('/getuserresumes', methods=['GET'])
+def getuserresumes():
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute('SELECT id, name,email,accountType,resume FROM users')
+    resumes = []
+    for row in c.fetchall():
+        resume = {
+            'id': row[0],
+            'name': row[1],
+            'email': row[2],
+            'accountType': row[3],
+            'resume': convertBinarytoFile(row[1],row[4]) 
+        }
+        resumes.append(resume)
+    conn.close()
+    return json.dumps(resumes)
+
 @app.route('/gettest', methods=['POST'])
 def get_test():
     if request.method=="POST":
         data = request.get_json()
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        c.execute('SELECT * FROM questions WHERE job_id='+data["jobId"])
+        c.execute('SELECT * FROM questions WHERE job_id='+str(data["jobId"]))
         jobs = []
         for row in c.fetchall():
             job = {
