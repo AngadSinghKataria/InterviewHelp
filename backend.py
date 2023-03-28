@@ -241,13 +241,11 @@ def resume_screening():
 def upload_jd():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    job_title = request.json['job_title']
-    company_name = request.json['company_name']
-    location = request.json['location']
-    salary = request.json['salary']
-    job_Description_file = request.files['job_Description_file']
-    c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
-              (job_title, company_name, location, salary, job_Description_file))
+    job_title = request.form.get('jobdetails')
+    print(job_title)
+    job_Description_file = request.files['file']
+    # c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
+    #           (job_title, company_name, location, salary, job_Description_file))
     conn.commit()
     conn.close()
     return jsonify({'message': 'JD uploaded created successfully'})
