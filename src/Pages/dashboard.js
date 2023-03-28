@@ -75,9 +75,9 @@ export default function Dashboard(){
                     <tr>
                         {jobdata.map(x =>
                             < tr >
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.Company</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.Title</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>x.TestId</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.Company}</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.Title}</td>
+                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.TestId}</td>
                                 <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { navigate('/test', {jobid:x.id}) }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
                             </tr>
                         )}
