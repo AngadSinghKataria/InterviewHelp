@@ -285,6 +285,9 @@ def upload_jd():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     jobData = json.loads(request.form.get('jobdetails'))
+    testData = json.loads(request.form.get('questions'))
+    questions, answers = testData['questions'], testData['answers']
+
     jobtitle = jobData['jobtitle']
     companyname = jobData['company']
     location = jobData['location']
@@ -294,6 +297,12 @@ def upload_jd():
     c.execute('INSERT INTO jobs (title, companyname, location, salary, jobdescriptionfile) VALUES (?, ?, ?, ?, ?)',
            (jobtitle, companyname, location, salary, job_description_data))
     conn.commit()
+    c.execute('SELECT id FROM jobs where title='+jobtitle)
+    id = c.fetchall()[0]
+    for i in range(len(questions)):
+        c.execute('INSERT INTO questions (job_id, question, answer) VALUES (?, ?, ?)',
+           (id[0], questions[i], answers[i]))
+        conn.commit()
     conn.close()
     return jsonify({'message': 'JD uploaded created successfully'})
 
