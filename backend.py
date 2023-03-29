@@ -255,7 +255,7 @@ def get_dashboard():
             "jobpostings": len(pendingjobs),
             "totalapplications":len(completedjobs),
             "totalshortlisted": totalselected,
-            "averagescore": round(avgscore/min(1, len(completedjobs)), 2)
+            "averagescore": round(avgscore/max(1, len(completedjobs)), 2)
             }
     return json.dumps(data)
 
@@ -335,9 +335,9 @@ def submit_test():
             score += testScore.calculate_score(i["answer"], answer)
             emotional,confidence=testScore.sentiment_analysis(i["answer"])
 
-        score = score/min(1,len(questions))
-        emotional = emotional/min(1,len(questions))
-        confidence = confidence/min(1,len(questions))
+        score = score/max(1,len(questions))
+        emotional = emotional/max(1,len(questions))
+        confidence = confidence/max(1,len(questions))
         facialcheat = data["cheat"]
         selected = "Not Selected"
         if score>50 and emotional>50 and confidence>50 and facialcheat<1000:
