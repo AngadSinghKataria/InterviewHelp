@@ -215,7 +215,7 @@ export default function CreateTest() {
                 .then((response) => response.json())
                 .then((result) => {
                     console.log('Success:', result);
-                    window.location.href = '/dashboard'
+                    window.location.href = '/recruiter'
                 })
                 .catch((error) => {
                     console.error('Error:', error);
