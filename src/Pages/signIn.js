@@ -83,8 +83,8 @@ export default function SignIn() {
           <div style={{ fontSize: '25px', fontWeight: '600', lineHeight: '52px', color: '#3F206F', textAlign: 'center' }}>Experience Related</div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%' }}>
             <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter Skills' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='Enter Most Recent Company' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='Enter Most Recent Job Title' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter Most Recent Company' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter Most Recent Job Title' />
             <div>
               Upload Resume
               <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="file" onChange={handleFileSelection} />
@@ -103,8 +103,8 @@ export default function SignIn() {
           <div style={{ fontSize: '25px', fontWeight: '600', lineHeight: '52px', color: '#3F206F', textAlign: 'center' }}>Educational Background</div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%' }}>
             <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter Most Recent Qualification' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='Enter Instiitue Name' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='Enter Marks Obtained In Percentage' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter Instiitue Name' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter Marks Obtained In Percentage' />
             <div>
               Upload Marksheet
               <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="file" />
@@ -123,9 +123,9 @@ export default function SignIn() {
           <div style={{ fontSize: '25px', fontWeight: '600', lineHeight: '52px', color: '#3F206F', textAlign: 'center' }}>Projects</div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%' }}>
             <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Describe Your Best Project' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='Give It A Name' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='Enter All The Skills Used' />
-            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="password" placeholder='(Optional) Enter URL Of The Project' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Give It A Name' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter All The Skills Used' />
+            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='(Optional) Enter URL Of The Project' />
             <div style={{ display: 'flex', justifyContent: 'center', borderRadius: '25px', width: '60%', padding: '3%', marginTop: '30px', backgroundColor: '#BC9DE0', textAlign: 'center', fontWeight: '500', fontSize: '16px' }} onClick={() => { navigate('/dashboard'); handleFileSubmission()}}>Sign Up Now</div>
           </div>
         </div>
