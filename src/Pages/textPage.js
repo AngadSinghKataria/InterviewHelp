@@ -14,8 +14,9 @@ export default function TestPage({ route, navigation }) {
         questions: []
     });
     const [count, setCount] = useState(0);
+    const [cheat, setCheat] = useState(0);
     const navigate = useNavigate()
-
+    
     useEffect(() => {
         const requestOptions = {
             method: 'POST',
@@ -48,7 +49,8 @@ export default function TestPage({ route, navigation }) {
                     .setGazeListener(function (data, clock) {
                         begin = true
                         if (data == null && begin) {
-                            // alert("No Faces Detected ! Reporting!")
+                            //alert("No Faces Detected ! Reporting!")
+                            setCheat(cheat+1)
                         }
                     })
                     .saveDataAcrossSessions(true)
@@ -95,7 +97,7 @@ export default function TestPage({ route, navigation }) {
           ...qna,
           questions: [
             ...qna.questions.slice(0, count),
-            Object.assign({}, qna[count], {answer: value} ),
+            Object.assign({}, qna.questions[count], {answer: value} ),
             ...qna.questions.slice(count + 1)
           ]
         });
@@ -142,11 +144,13 @@ export default function TestPage({ route, navigation }) {
 
     const navigateMe = () => {
         if (endTest) {
+            webgazer.end();
             fetch('http://127.0.0.1:5000/submittest', {
                 method: 'POST',
                 body: JSON.stringify({
                     questions: qna.questions,
-                    jobId: jobId
+                    jobId: jobId,
+                    cheat:cheat
                 }),
                 headers: {
                    'Content-type': 'application/json; charset=UTF-8',
@@ -176,9 +180,9 @@ export default function TestPage({ route, navigation }) {
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div style={{ width: '15vw', height: '85vh', flexDirection: "column", backgroundColor: '#BFA0E2' }}>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }}>Dashboard</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { setRender(1) }}>Pending Test</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }}>Check All Applications</div>
+                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/dashboard') }}>Dashboard</div>
+                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/dashboard') }}>Pending Test</div>
+                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/dashboard') }}>Check All Applications</div>
                     <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/') }}>Sign Out</div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>

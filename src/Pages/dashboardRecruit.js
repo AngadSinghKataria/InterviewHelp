@@ -88,7 +88,7 @@ export default function DashboardAdmin() {
                     </tr>
                     <tr>
                         <td>
-                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}} onClick={()=>{navigate('/createtest')}}><div style={{backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px'}}>Create Test</div></td>
+                        <td style={{border: '1px', textAlign: "left",padding: '8px', fontSize: '15px'}} onClick={()=>{navigate('/createtest')}}><div style={{backgroundColor: '#3F206F', borderRadius:'25px', textAlign: 'center', color: 'white', width: '100%', padding: '5px'}}>Create Test</div></td>
                         </td>
                     </tr>
 

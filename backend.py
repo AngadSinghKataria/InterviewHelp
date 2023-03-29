@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
+import testScore
 
 @app.route('/users', methods=['GET', 'POST'])
 def users():
@@ -204,6 +204,61 @@ def convertBinarytoFile(title, file):
         f.write(bytes_data)
     return target_path+f'{title}.pdf'
 
+@app.route('/getdashboard', methods=['GET'])
+def get_dashboard():
+    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute('SELECT id, title, jobdescriptionfile, companyname, location, salary FROM jobs WHERE id NOT IN (SELECT job_id FROM scores WHERE user_id=0)')
+    pendingjobs = []
+    for row in c.fetchall():
+        x = convertBinarytoFile(row[1],row[2])
+        y = 'src/Components/CVs/Angad_Singh_Kataria_CV.pdf'
+        res = MatchResume(y,x)
+        if res>50:
+            job = {
+                'id': row[0],
+                'title': row[1],
+                'description': convertBinarytoFile(row[1],row[2]),
+                'company': row[3],
+                'location': row[4],
+                'salary': row[5],
+                'resume': res
+            }
+            pendingjobs.append(job)
+
+    c.execute('SELECT jobs.id, title, jobdescriptionfile, companyname, location, salary, scores.score, scores.emotion, scores.confidence, scores.cheat, scores.selected FROM jobs INNER JOIN scores ON scores.job_id=jobs.id WHERE scores.user_id=0')
+    completedjobs = []
+    avgscore=0
+    totalselected=0
+    for row in c.fetchall():
+        job = {
+            'id': row[0],
+            'title': row[1],
+            'description': convertBinarytoFile(row[1],row[2]),
+            'company': row[3],
+            'location': row[4],
+            'salary': row[5],
+            'score': round(row[6],2),
+            'emotion': round(row[7],2),
+            'confidence': round(row[8],2),
+            'cheat': round(row[9],2),
+            'selected': row[10]
+        }
+        if row[10]=="Selected":
+            totalselected+=1
+        avgscore+=row[6]
+        completedjobs.append(job)
+    data = {
+            "pendingjobs":pendingjobs, 
+            "completedjobs":completedjobs,
+            "jobpostings": len(pendingjobs),
+            "totalapplications":len(completedjobs),
+            "totalshortlisted": totalselected,
+            "averagescore": round(avgscore/len(completedjobs), 2)
+            }
+    return json.dumps(data)
+
 @app.route('/getjobs', methods=['GET'])
 def get_jobs():
     conn = sqlite3.connect('database.db')
@@ -263,21 +318,35 @@ def get_test():
 @app.route('/submittest', methods=['POST'])
 def submit_test():
     if request.method=="POST":
-        try:
-            data = request.get_json()
-            questions = data["questions"]
-            jobid = data["jobId"]
-            conn = sqlite3.connect('database.db')
-            c = conn.cursor()
-            for i in questions:
-                c.execute('INSERT INTO answers (question_id, answer_text, user_id) VALUES (?, ?, ?, ?)',
-                        (i["questionId"], i["answer"], 0))
-                conn.commit()
-            conn.close()
-            return jsonify({"data": "Inserted Successfully!"})
-        except:
-            return jsonify({"data": "Insertion Unsuccessful!"})
+        data = request.get_json()
+        questions = data["questions"]
+        jobid = data["jobId"]
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+        score=0
+        emotional=0
+        confidence=0
+        for i in questions:
+            c.execute('INSERT INTO answers (question_id, answer_text, user_id) VALUES (?, ?, ?)',
+                    (i["questionId"], i["answer"], 0))
+            conn.commit()
+            c.execute('SELECT answer FROM questions WHERE id='+str(i["questionId"]))
+            answer = c.fetchall()[0][0]
+            score += testScore.calculate_score(i["answer"], answer)
+            emotional,confidence=testScore.sentiment_analysis(i["answer"])
 
+        score = score/len(questions)
+        emotional = emotional/len(questions)
+        confidence = confidence/len(questions)
+        facialcheat = data["cheat"]
+        selected = "Not Selected"
+        if score>50 and emotional>50 and confidence>50 and facialcheat<1000:
+            selected = "Selected"
+        c.execute('INSERT INTO scores (job_id, user_id, score, emotion, confidence, cheat, selected) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                    (jobid, 0, score, emotional, confidence, facialcheat, selected))
+        conn.commit()
+        conn.close()
+        return jsonify({"data": "Inserted Successfully!"})
 
 @app.route('/uploadfile', methods=['POST'])
 def upload_file():
@@ -289,7 +358,7 @@ def upload_file():
     target_file = os.path.join(target_folder, filename)
     file.save(target_file)
     return 'File uploaded successfully'
-    
+
 
 @app.route('/resumeScreening', methods=['POST'])
 def resume_screening():
@@ -333,13 +402,19 @@ if __name__ == '__main__':
     c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, accountType TEXT, resume BLOB NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER, question TEXT, answer TEXT)')
     c.execute('CREATE TABLE IF NOT EXISTS answers (id INTEGER PRIMARY KEY AUTOINCREMENT, question_id INTEGER, answer_text TEXT, user_id INTEGER)')
-    c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score INTEGER NOT NULL)')
+    c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score REAL NOT NULL, emotion REAL NOT NULL, confidence REAL NOT NULL, cheat REAL NOT NULL, selected TEXT NOT NULL)')
     # c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  companyname TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL, jobdescriptionfile BLOB NOT NULL)')
     with open('src/Components/CVs/Angad_Singh_Kataria_CV.pdf', 'rb') as file:
         resume = file.read()
     c.execute('INSERT INTO users (name,email,accountType,resume) VALUES (?,?,?,?)',
            ('Abhinav', 'abhinav@gmail.com', 'student', resume))
+    c.execute('INSERT INTO users (name,email,accountType,resume) VALUES (?,?,?,?)',
+           ('Ananya', 'ananya@gmail.com', 'recruiter', resume))
     conn.commit()
+
+    #print(c.execute('SELECT jobs.id, title, jobdescriptionfile, companyname, location, salary, scores.score, scores.emotion, scores.confidence, scores.cheat, scores.selected FROM jobs INNER JOIN scores ON scores.job_id=jobs.id WHERE scores.user_id=0').fetchall())
+    print(c.execute('SELECT * FROM scores').fetchall())
+
     conn.close()
     app.run(debug=True)
