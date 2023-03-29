@@ -1,7 +1,38 @@
+import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../Components/Header/Header"
-import Text from "../Components/text"
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Box } from "@mui/system";
+import { Cloud, Home, Logout, Quiz, Settings } from "@mui/icons-material";
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
 
 export default function Dashboard() {
@@ -30,7 +61,28 @@ export default function Dashboard() {
         };
     */
     const [render, setRender] = useState(0)
-    const [jobdata, setJobData] = useState([])
+    const [jobdata, setJobData] = useState([
+        {
+            "company": "adadw",
+            "title": "Testing",
+            "resume": "Resume hrere",
+        },
+        {
+            "company": "adadw",
+            "title": "Testing",
+            "resume": "Resume hrere",
+        },
+        {
+            "company": "adadw",
+            "title": "Testing",
+            "resume": "Resume hrere",
+        },
+        {
+            "company": "adadw",
+            "title": "Testing",
+            "resume": "Resume hrere",
+        },
+    ])
     const [completedjobs, setCompletedJobs] = useState([])
     const [jobpostings, setjJobPostings] = useState("")
     const [totalapplications, setTotalApplications] = useState("")
@@ -54,29 +106,34 @@ export default function Dashboard() {
 
     if (render == 0) {
         data = () => {
+
             return (
-                <table style={{ borderCollapse: '10px', width: '100%' }}>
-                    <tr onClick={() => { setRender(2) }}>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Company  </th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job description</th>
-                        <th style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Status</th>
-                        <th style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>JD vs Resume Match Score</th>
-                    </tr>
-
-                    {jobdata.map((x, index) => {
-                        return (
-                            <tr>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.company}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.title}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                                <td style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Shortlisted</td>
-                                <td style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>{x.resume}</td>
-                            </tr>
-                        )
-                    })}
-
-                </table>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Company</StyledTableCell>
+                                <StyledTableCell align="right">Job</StyledTableCell>
+                                <StyledTableCell align="right">Job Description</StyledTableCell>
+                                <StyledTableCell align="right">Status</StyledTableCell>
+                                <StyledTableCell align="right">JD vs Resume Match Score</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {jobdata.map((row) => (
+                                <StyledTableRow key={row.company}>
+                                    <StyledTableCell component="th" scope="row">
+                                        {row.company}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">{row.title}</StyledTableCell>
+                                    <StyledTableCell align="right"><Button color="secondary" variant="outlined">Link</Button></StyledTableCell>
+                                    <StyledTableCell align="right">Shortlisted</StyledTableCell>
+                                    <StyledTableCell align="right">{row.resume}</StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )
         }
     }
@@ -84,22 +141,28 @@ export default function Dashboard() {
     if (render == 1) {
         data = () => {
             return (
-                <table style={{ borderCollapse: '10px', width: '100%' }}>
-                    <tr onClick={() => { setRender(2) }}>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Company  </th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', width: '50%' }}>Proceed To Test</th>
-                    </tr>
-                    {jobdata.map((x, index) => {
-                        return (
-                            < tr >
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.company}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.title}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }} onClick={() => { localStorage.setItem('jobId', x.id); navigate('/test') }}><div style={{ backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white', width: '50%', padding: '5px' }}>Proceed</div></td>
-                            </tr>
-                        )
-                    })}
-                </table>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Company</StyledTableCell>
+                                <StyledTableCell align="right">Job</StyledTableCell>
+                                <StyledTableCell align="right">Proceed To Test</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {jobdata.map((row) => (
+                                <StyledTableRow key={row.company}>
+                                    <StyledTableCell component="th" scope="row">
+                                        {row.company}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">{row.title}</StyledTableCell>
+                                    <StyledTableCell align="right"><Button onClick={() => { localStorage.setItem('jobId', row.id); navigate('/test') }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )
         }
     }
@@ -107,30 +170,36 @@ export default function Dashboard() {
     if (render == 2) {
         data = () => {
             return (
-                <table style={{ borderCollapse: '10px', width: '100%' }}>
-                    <tr onClick={() => { setRender(2) }}>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Company  </th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Test Score</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Emotional Score</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Confidence Score</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Cheat Score</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Status</th>
-                    </tr>
-
-                    {completedjobs.map((x, index) => {
-                        return (
-                            <tr>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.company}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.title}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.score}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.emotion}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.confidence}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.cheat}</td>
-                                <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{x.selected}</td>
-                            </tr>)
-                    })}
-                </table>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Company</StyledTableCell>
+                                <StyledTableCell align="right">Job</StyledTableCell>
+                                <StyledTableCell align="right">Test Score</StyledTableCell>
+                                <StyledTableCell align="right">Emotional Score</StyledTableCell>
+                                <StyledTableCell align="right">Confidence Score</StyledTableCell>
+                                <StyledTableCell align="right">Cheat Score</StyledTableCell>
+                                <StyledTableCell align="right">Status</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {completedjobs.map((row) => (
+                                <StyledTableRow key={row.company}>
+                                    <StyledTableCell component="th" scope="row">
+                                        {row.company}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">{row.title}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.score}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.emotion}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.confidence}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.cheat}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.selected}</StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )
         }
     }
@@ -140,40 +209,94 @@ export default function Dashboard() {
         <>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ width: '15vw', height: '89vh', flexDirection: "column", backgroundColor: '#BFA0E2' }}>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { setRender(0) }}>Dashboard</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { setRender(1) }}>Pending Test</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { setRender(2) }}>Check All Applications</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/') }}>Sign Out</div>
+                <div style={{ width: '15vw', height: '91vh', flexDirection: "column", backgroundColor: '#240046' }}>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                        onClick={() => { setRender(0) }}>
+                        <Home sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Dashboard
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                        onClick={() => { setRender(1) }}>
+                        <Quiz sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Pending Test
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                        onClick={() => { setRender(2) }}>
+                        <Cloud sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Check All Applications
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/') }}>
+                        <Logout sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Sign Out
+                    </div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>
-                    <div style={{ height: '15vh', width: '90%', borderRadius: '25px', backgroundColor: '#BFA0E2', padding: '5%' }}>
-                        <div style={{ paddingBottom: '25px', fontSize: '35px' }}>Welcome To NMIMS Students Job Portal</div>
-                        <div style={{ paddingBottom: '25px', fontSize: '35px', fontWeight: '900', marginTop: '25px' }}>Hetvii Thakkar</div>
-                    </div>
-                    <div style={{ width: '100%', borderRadius: '25px', display: 'flex', flexDirection: "row", marginTop: '10px', marginBottom: '10px', justifyContent: "space-between" }}>
-                        <div style={{ backgroundColor: "white", padding: '10px', borderRadius: '15px' }}>
-                            <div style={{ fontSize: '15px' }}>Job Posting</div>
-                            <div style={{ fontSize: '15px', fontWeight: '700', marginTop: '20px' }}>{jobpostings}</div>
-                        </div>
-                        <div style={{ backgroundColor: "white", padding: '10px', borderRadius: '15px' }}>
-                            <div style={{ fontSize: '15px' }}>Total Applications Sent</div>
-                            <div style={{ fontSize: '15px', fontWeight: '700', marginTop: '20px' }}>{totalapplications}</div>
-                        </div>
-                        <div style={{ backgroundColor: "white", padding: '10px', borderRadius: '15px' }}>
-                            <div style={{ fontSize: '15px' }}>Total Short Listed</div>
-                            <div style={{ fontSize: '15px', fontWeight: '700', marginTop: '20px' }}>{totalshortlisted}</div>
-                        </div>
-                        <div style={{ backgroundColor: "white", padding: '10px', borderRadius: '15px' }}>
-                            <div style={{ fontSize: '15px' }}>Average test Score</div>
-                            <div style={{ fontSize: '15px', fontWeight: '700', marginTop: '20px' }}>{averagescore}</div>
-                        </div>
-
-                    </div>
-
-                    <div style={{ height: 'max-content', width: '80%', borderRadius: '25px', backgroundColor: 'white', paddingLeft: '5%', paddingTop: '1%', }}>
+                    <Grid container>
+                        <Grid item sm={3} sx={{ margin: "10px 0px", }} >
+                            <Card sx={{ maxWidth: "90%", height: "200px", borderRadius: "8px", margin: "0px auto" }}>
+                                <CardContent>
+                                    <Box sx={{ background: "#240046", borderRadius: "12px", width: "max-content", padding: "15px", color: "white", marginBottom: "10px" }}>
+                                        <Settings fontSize="large" />
+                                    </Box>
+                                    <Typography variant="h5" color="text.secondary" sx={{ fontWeight: "bold" }} gutterBottom>
+                                        Job Posting
+                                    </Typography>
+                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        {jobpostings}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={3} sx={{ margin: "10px 0px", }} >
+                            <Card sx={{ maxWidth: "90%", height: "200px", borderRadius: "8px", margin: "0px auto" }}>
+                                <CardContent>
+                                    <Box sx={{ background: "#240046", borderRadius: "12px", width: "max-content", padding: "15px", color: "white", marginBottom: "10px" }}>
+                                        <Settings fontSize="large" />
+                                    </Box>
+                                    <Typography variant="h5" color="text.secondary" sx={{ fontWeight: "bold" }} gutterBottom>
+                                        Total Applications Sent
+                                    </Typography>
+                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        {totalapplications}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={3} sx={{ margin: "10px 0px", }} >
+                            <Card sx={{ maxWidth: "90%", height: "200px", borderRadius: "8px", margin: "0px auto" }}>
+                                <CardContent>
+                                    <Box sx={{ background: "#240046", borderRadius: "12px", width: "max-content", padding: "15px", color: "white", marginBottom: "10px" }}>
+                                        <Settings fontSize="large" />
+                                    </Box>
+                                    <Typography variant="h5" color="text.secondary" sx={{ fontWeight: "bold" }} gutterBottom>
+                                        Total Short Listed
+                                    </Typography>
+                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        {totalshortlisted}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={3} sx={{ margin: "10px 0px", }} >
+                            <Card sx={{ maxWidth: "90%", height: "200px", borderRadius: "8px", margin: "0px auto" }}>
+                                <CardContent>
+                                    <Box sx={{ background: "#240046", borderRadius: "12px", width: "max-content", padding: "15px", color: "white", marginBottom: "10px" }}>
+                                        <Settings fontSize="large" />
+                                    </Box>
+                                    <Typography variant="h5" color="text.secondary" sx={{ fontWeight: "bold" }} gutterBottom>
+                                        Average test Score
+                                    </Typography>
+                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        {averagescore}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                    <Box sx={{ marginTop: "20px" }}>
                         {data()}
-                    </div>
+                    </Box>
                 </div>
             </div>
         </>
