@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../Components/Header/Header"
 import Text from "../Components/text"
+import { Cloud, Home, Logout, Quiz } from "@mui/icons-material"
 // const webgazer =  require('webgazer')
 
 
@@ -237,11 +238,27 @@ export default function CreateTest() {
         <>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ width: '15vw', height: '85vh', flexDirection: "column", backgroundColor: '#BFA0E2' }}>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/recruiter') }}>Dashboard</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/recruiter') }}>Tests</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/recruiter') }}>Applications Recieved</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/') }}>Sign Out</div>
+                <div style={{ width: '15vw', height: '91vh', flexDirection: "column", backgroundColor: '#240046' }}>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 0 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/recruiter') }}>
+                        <Home sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Dashboard
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 1 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/recruiter') }}>
+                        <Quiz sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Pending Test
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 2 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/recruiter') }}>
+                        <Cloud sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Applications Recieved
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 3 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/') }}>
+                        <Logout sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Sign Out
+                    </div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>
                     <div style={{ height: 'max-content', width: '80%', borderRadius: '25px', backgroundColor: 'white', paddingLeft: '5%', paddingTop: '1%', height: '80vh' }}>
