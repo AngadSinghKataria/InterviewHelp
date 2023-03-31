@@ -309,7 +309,7 @@ export default function DashboardAdmin() {
                                         <Settings fontSize="large" />
                                     </Box>
                                     <Typography variant="h5" color="text.secondary" sx={{ fontWeight: "bold" }} gutterBottom>
-                                        Total Applications Sent
+                                        Total Applications Recieved
                                     </Typography>
                                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                                         3

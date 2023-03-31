@@ -53,6 +53,7 @@ export default function Dashboard() {
         fetch('http://127.0.0.1:5000/getdashboard')
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setJobData(data.pendingjobs);
                 setCompletedJobs(data.completedjobs);
                 setjJobPostings(data.jobpostings);
@@ -66,7 +67,7 @@ export default function Dashboard() {
         data = () => {
 
             return (
-                <TableContainer component={Paper} id="r1" key={"r1"}>
+                <TableContainer component={Paper} id="1" key={"2"}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>
@@ -99,7 +100,7 @@ export default function Dashboard() {
     if (render == 1) {
         data = () => {
             return (
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} id="3" key={"4"}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>
@@ -128,7 +129,7 @@ export default function Dashboard() {
     if (render == 2) {
         data = () => {
             return (
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} id="5" key={"6"}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>

@@ -46,7 +46,7 @@ def MatchResume(CV, Req):
 
     return MatchPercentage
 
-CV="src\Components\CVs\Angad_Singh_Kataria_CV.pdf"
+CV="src\Components\CVs\Hetvi_CV.pdf"
 Req="src\Components\JobDescriptions\PythonDeveloperJD.pdf"
 MatchScore = MatchResume(CV, Req)
 print('Match Percentage is :'+ str(MatchScore)+'% to Requirement')
