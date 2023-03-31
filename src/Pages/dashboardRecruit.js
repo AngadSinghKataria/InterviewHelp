@@ -189,40 +189,70 @@ export default function DashboardAdmin() {
     if (render == 3) {
         data = () => {
             return (
-                <table style={{ borderCollapse: '10px', width: '100%' }}>
-                    <tr onClick={() => { setRender(2) }}>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Candidate Name</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Job</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Test Score</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Download Resume</th>
-                        <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Download Report</th>
-                        <th style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Status</th>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Abhinav</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Front End Dev</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>80%</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Shortlisted</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>hetvii</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Front End Dev</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>80%</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Not Shortlisted</td>
-                    </tr>
-                    <tr>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Ananya</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Front End Dev</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>80%</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px', backgroundColor: '#3F206F', borderRadius: '25px', textAlign: 'center', color: 'white' }}>Link</td>
-                        <td style={{ border: '1px', textAlign: "center", padding: '8px', fontSize: '15px' }}>Shortlisted</td>
-                    </tr>
-                </table>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell >Candidate Name</StyledTableCell>
+                                <StyledTableCell >Job</StyledTableCell>
+                                <StyledTableCell>Test Score</StyledTableCell>
+                                <StyledTableCell>Download Resume</StyledTableCell>
+                                <StyledTableCell>Download Report</StyledTableCell>
+                                <StyledTableCell>Status</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <StyledTableRow key={1}>
+                                <StyledTableCell component="th" scope="row">
+                                    Abhinav
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    Front end dev
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    80%
+                                </StyledTableCell>
+                                <StyledTableCell ><Button onClick={() => { setRender(3) }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                <StyledTableCell ><Button onClick={() => { setRender(3) }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    Shortlisted
+                                </StyledTableCell>
+                            </StyledTableRow>
+                            <StyledTableRow key={2}>
+                                <StyledTableCell component="th" scope="row">
+                                    Abhinav
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    Front end dev
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    80%
+                                </StyledTableCell>
+                                <StyledTableCell ><Button onClick={() => { setRender(3) }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                <StyledTableCell ><Button onClick={() => { setRender(3) }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    Shortlisted
+                                </StyledTableCell>
+                            </StyledTableRow>
+                            <StyledTableRow key={3}>
+                                <StyledTableCell component="th" scope="row">
+                                    Abhinav
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    Front end dev
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    80%
+                                </StyledTableCell>
+                                <StyledTableCell ><Button onClick={() => { setRender(3) }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                <StyledTableCell ><Button onClick={() => { setRender(3) }} variant="outlined" color="secondary">Link</Button></StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    Shortlisted
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )
         }
     }
