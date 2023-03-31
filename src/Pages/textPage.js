@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import Header from "../Components/Header/Header"
 import Text from "../Components/text"
+import { Cloud, Home, Logout, Quiz } from "@mui/icons-material"
 // const webgazer =  require('webgazer')
 
 const webgazer = window.webgazer
@@ -179,11 +180,27 @@ export default function TestPage({ route, navigation }) {
         <>
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ width: '15vw', height: '85vh', flexDirection: "column", backgroundColor: '#BFA0E2' }}>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/dashboard') }}>Dashboard</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/dashboard') }}>Pending Test</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/dashboard') }}>Check All Applications</div>
-                    <div style={{ fontSize: '19px', fontWeight: '500', padding: '20px' }} onClick={() => { navigate('/') }}>Sign Out</div>
+                <div style={{ width: '15vw', height: '91vh', flexDirection: "column", backgroundColor: '#240046' }}>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 0 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/dashboard') }}>
+                        <Home sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Dashboard
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 1 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/dashboard') }}>
+                        <Quiz sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Pending Test
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 2 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/dashboard') }}>
+                        <Cloud sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Check All Applications
+                    </div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 3 ? "gold" : "white", cursor: "pointer" }}
+                        onClick={() => { navigate('/') }}>
+                        <Logout sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
+                        Sign Out
+                    </div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>
                     <div style={{ height: 'max-content', width: '80%', borderRadius: '25px', backgroundColor: 'white', paddingLeft: '5%', paddingTop: '1%', }}>
