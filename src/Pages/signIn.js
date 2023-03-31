@@ -126,7 +126,7 @@ export default function SignIn() {
             <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Give It A Name' />
             <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Enter All The Skills Used' />
             <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='(Optional) Enter URL Of The Project' />
-            <div style={{ display: 'flex', justifyContent: 'center', borderRadius: '25px', width: '60%', padding: '3%', marginTop: '30px', backgroundColor: '#BC9DE0', textAlign: 'center', fontWeight: '500', fontSize: '16px' }} onClick={() => { navigate('/dashboard'); handleFileSubmission()}}>Sign Up Now</div>
+            <div style={{ display: 'flex', justifyContent: 'center', borderRadius: '25px', width: '60%', padding: '3%', marginTop: '30px', backgroundColor: '#BC9DE0', textAlign: 'center', fontWeight: '500', fontSize: '16px' }} onClick={() => { navigate('/dashboard'); handleFileSubmission() }}>Sign Up Now</div>
           </div>
         </div>
       )

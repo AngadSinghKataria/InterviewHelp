@@ -264,22 +264,22 @@ export default function DashboardAdmin() {
             <Header />
             <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div style={{ width: '15vw', height: '91vh', flexDirection: "column", backgroundColor: '#240046' }}>
-                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 0 ? "gold" : "white", cursor: "pointer" }}
                         onClick={() => { setRender(0) }}>
                         <Home sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
                         Dashboard
                     </div>
-                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 1 ? "gold" : "white", cursor: "pointer" }}
                         onClick={() => { setRender(1) }}>
                         <Quiz sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
                         Pending Test
                     </div>
-                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 2 ? "gold" : "white", cursor: "pointer" }}
                         onClick={() => { setRender(2) }}>
                         <Cloud sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
                         Check All Applications
                     </div>
-                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: "white", cursor: "pointer" }}
+                    <div style={{ fontSize: '16px', fontWeight: '500', padding: '20px', color: render == 3 ? "gold" : "white", cursor: "pointer" }}
                         onClick={() => { navigate('/') }}>
                         <Logout sx={{ position: "relative", top: "5px", marginRight: "10px" }} />
                         Sign Out

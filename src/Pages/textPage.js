@@ -16,7 +16,7 @@ export default function TestPage({ route, navigation }) {
     const [count, setCount] = useState(0);
     const [cheat, setCheat] = useState(0);
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         const requestOptions = {
             method: 'POST',
@@ -26,7 +26,7 @@ export default function TestPage({ route, navigation }) {
         fetch('http://127.0.0.1:5000/gettest', requestOptions)
             .then(response => response.json())
             .then(data => {
-                var q=[]
+                var q = []
                 for (let i = 0; i < data.length; i++) {
                     q.push({
                         questionId: data[i].id,
@@ -37,56 +37,56 @@ export default function TestPage({ route, navigation }) {
 
                 setQnA({
                     ...qna,
-                    questions:q,
+                    questions: q,
                 })
             });
-            const onLoadWindow = async function () {
+        const onLoadWindow = async function () {
 
-                var begin = false
-                //start the webgazer tracker
-                await webgazer.setRegression('ridge') /* currently must set regression and tracker */
-                    //.setTracker('clmtrackr')
-                    .setGazeListener(function (data, clock) {
-                        begin = true
-                        if (data == null && begin) {
-                            //alert("No Faces Detected ! Reporting!")
-                            setCheat(cheat+1)
-                        }
-                    })
-                    .saveDataAcrossSessions(true)
-                    .begin();
-                webgazer.showVideoPreview(true) /* shows all video previews */
-                    .showPredictionPoints(false) /* shows a square every 100 milliseconds where current prediction is */
-                    .applyKalmanFilter(true); /* Kalman Filter defaults to on. Can be toggled by user. */
-    
-                //Set up the webgazer video feedback.
-                // var setup = function() {
-    
-                //     //Set up the main canvas. The main canvas is used to calibrate the webgazer.
-                //     var canvas = document.getElementById("plotting_canvas");
-                //     canvas.width = window.innerWidth;
-                //     canvas.height = window.innerHeight;
-                //     canvas.style.position = 'fixed';
-                // };
-                // setup();
-                // webgazer.setGazeListener(function(data, foo) {
-                //     if (data == null  && webgazer.isReady()) {
-                //         alert(data);
-                //     }
-                // }).begin();        
-                console.log("executed only once!");
-    
-            };
-            onLoadWindow()
-        }, [""]);
+            var begin = false
+            //start the webgazer tracker
+            await webgazer.setRegression('ridge') /* currently must set regression and tracker */
+                //.setTracker('clmtrackr')
+                .setGazeListener(function (data, clock) {
+                    begin = true
+                    if (data == null && begin) {
+                        //alert("No Faces Detected ! Reporting!")
+                        setCheat(cheat + 1)
+                    }
+                })
+                .saveDataAcrossSessions(true)
+                .begin();
+            webgazer.showVideoPreview(true) /* shows all video previews */
+                .showPredictionPoints(false) /* shows a square every 100 milliseconds where current prediction is */
+                .applyKalmanFilter(true); /* Kalman Filter defaults to on. Can be toggled by user. */
+
+            //Set up the webgazer video feedback.
+            // var setup = function() {
+
+            //     //Set up the main canvas. The main canvas is used to calibrate the webgazer.
+            //     var canvas = document.getElementById("plotting_canvas");
+            //     canvas.width = window.innerWidth;
+            //     canvas.height = window.innerHeight;
+            //     canvas.style.position = 'fixed';
+            // };
+            // setup();
+            // webgazer.setGazeListener(function(data, foo) {
+            //     if (data == null  && webgazer.isReady()) {
+            //         alert(data);
+            //     }
+            // }).begin();        
+            console.log("executed only once!");
+
+        };
+        onLoadWindow()
+    }, [""]);
 
     const incrementCount = () => {
-        
-        setCount(Math.min(count+1,qna.questions.length-1));
-        
+
+        setCount(Math.min(count + 1, qna.questions.length - 1));
+
     };
     const decrementCount = () => {
-        if(count != 0){
+        if (count != 0) {
             setCount(count - 1);
         }
     };
@@ -94,15 +94,15 @@ export default function TestPage({ route, navigation }) {
     function updateAnswers(event) {
         const value = event.target.value;
         setQnA({
-          ...qna,
-          questions: [
-            ...qna.questions.slice(0, count),
-            Object.assign({}, qna.questions[count], {answer: value} ),
-            ...qna.questions.slice(count + 1)
-          ]
+            ...qna,
+            questions: [
+                ...qna.questions.slice(0, count),
+                Object.assign({}, qna.questions[count], { answer: value }),
+                ...qna.questions.slice(count + 1)
+            ]
         });
-      }
-   
+    }
+
     var data = () => { }
     var color = '#3F206F'
     var dataText = 'Choose'
@@ -132,15 +132,15 @@ export default function TestPage({ route, navigation }) {
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>{qna.questions[count].question}</th>
                     </tr>
                     <tr>
-                        <textarea style={{display: 'block', width: '80%', marginLeft: '10px'}} className="textNote" id="textZone" value={qna.questions[count].answer} rows={10} cols={40} onChange={updateAnswers}/>
+                        <textarea style={{ display: 'block', width: '80%', marginLeft: '10px' }} className="textNote" id="textZone" value={qna.questions[count].answer} rows={10} cols={40} onChange={updateAnswers} />
                     </tr>
                 </table>
             )
         }
     }
-    
 
-        
+
+
 
     const navigateMe = () => {
         if (endTest) {
@@ -150,19 +150,19 @@ export default function TestPage({ route, navigation }) {
                 body: JSON.stringify({
                     questions: qna.questions,
                     jobId: jobId,
-                    cheat:cheat
+                    cheat: cheat
                 }),
                 headers: {
-                   'Content-type': 'application/json; charset=UTF-8',
+                    'Content-type': 'application/json; charset=UTF-8',
                 },
-             })
+            })
                 .then((res) => res.json())
                 .then((data) => {
-                   console.log(data);
-                   navigate('/dashboard');
+                    console.log(data);
+                    navigate('/dashboard');
                 })
                 .catch((err) => {
-                   console.log(err.message);
+                    console.log(err.message);
                 });
         } else {
             setRender(1)
