@@ -204,7 +204,7 @@ export default function TestPage({ route, navigation }) {
                     </div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>
-                    <Container>
+                    <Container sx={{marginTop:"150px"}}>
                         {data()}
                         {render > 0 &&
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", marginRight: '20px' }}>
