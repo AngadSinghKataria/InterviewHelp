@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Header from "../Components/Header/Header"
 import Text from "../Components/text"
 import { Cloud, Home, Logout, Quiz } from "@mui/icons-material"
+import { Box, Button, Container, Divider, Typography } from "@mui/material"
 // const webgazer =  require('webgazer')
 
 
@@ -156,26 +157,42 @@ export default function CreateTest() {
     if (render == 0) {
         data = () => {
             return (
-                <>
-                    <div style={{ height: '15vh', width: '90%', borderRadius: '25px', padding: '5%', paddingBottom: '40%' }}>
-                        <div style={{ paddingBottom: '1px', fontSize: '25px' }}>Welcome To The Test Creation Section</div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Job Title:
-                            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Job Title' onChange={updateJobTitle} value={job.jobtitle} />
-                        </div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Company Name:
-                            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Company' onChange={updateCompany} value={job.company} />
-                        </div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Location:
-                            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Location' onChange={updateLocation} value={job.location} />
-                        </div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Salary:
-                            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="text" placeholder='Salary' onChange={updateSalary} value={job.salary} />
-                        </div>
-                        <div style={{ paddingBottom: '15px', fontSize: '15px', fontWeight: '900' }}>Enter Job Description:
-                            <input style={{ width: '100%', height: '40px', padding: '1%', marginBottom: '10px', borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} type="file" placeholder='Job Description' onChange={handleFileSelection} value={job.jobdescription} />
-                        </div>
+                <Box>
+                    <Typography variant="h4" style={{ paddingBottom: '1px', fontWeight: "bold" }}>
+                        Welcome To The Test Creation Section
+                    </Typography>
+                    <Divider sx={{ margin: "20px 0px" }} />
+                    <div style={{ paddingBottom: '15px', }}>
+                        <Typography sx={{ marginLeft: "10px" }}>
+                            Enter Job Title:
+                        </Typography>
+                        <input style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} type="text" placeholder='Job Title' onChange={updateJobTitle} value={job.jobtitle} />
                     </div>
-                </>
+                    <div style={{ paddingBottom: '15px', }}>
+                        <Typography sx={{ marginLeft: "10px" }}>
+                            Enter Company Name:
+                        </Typography>
+                        <input style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} type="text" placeholder='Company Name' onChange={updateCompany} value={job.company} />
+                    </div>
+                    <div style={{ paddingBottom: '15px', }}>
+                        <Typography sx={{ marginLeft: "10px" }}>
+                            Enter Location:
+                        </Typography>
+                        <input style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} type="text" placeholder='Job Location' onChange={updateLocation} value={job.location} />
+                    </div>
+                    <div style={{ paddingBottom: '15px', }}>
+                        <Typography sx={{ marginLeft: "10px" }}>
+                            Enter Salary:
+                        </Typography>
+                        <input style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} type="text" placeholder='Job Salary' onChange={updateSalary} value={job.salary} />
+                    </div>
+                    <div style={{ paddingBottom: '15px', }}>
+                        <Typography sx={{ marginLeft: "10px" }}>
+                            Enter Job Description:
+                        </Typography>
+                        <input style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} type="file" placeholder='Job Description' onChange={handleFileSelection} value={job.jobdescription} />
+                    </div>
+                </Box >
             )
         }
     }
@@ -187,10 +204,10 @@ export default function CreateTest() {
                         <th style={{ border: '1px', textAlign: "left", padding: '8px', fontSize: '15px' }}>Question {count}</th>
                     </tr>
                     <tr>
-                        <textarea style={{ display: 'block', width: '80%', marginLeft: '10px' }} className="questionNote" id="questionZone" value={qna.questions[count]} rows={2} cols={40} onChange={updateQuestions} />
+                        <textarea style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} className="questionNote" id="questionZone" value={qna.questions[count]} rows={2} cols={40} onChange={updateQuestions} />
                     </tr>
                     <tr>
-                        <textarea style={{ display: 'block', width: '80%', marginLeft: '10px' }} className="textNote" id="textZone" value={qna.answers[count]} rows={10} cols={40} onChange={updateAnswers} />
+                        <textarea style={{ width: '100%', border: "0.5px solid gray", padding: '1%', marginBottom: '10px', borderRadius: "8px" }} className="textNote" id="textZone" value={qna.answers[count]} rows={10} cols={40} onChange={updateAnswers} />
                     </tr>
                 </table>
             )
@@ -261,17 +278,19 @@ export default function CreateTest() {
                     </div>
                 </div>
                 <div style={{ width: '80vw', padding: '3%', backgroundColor: '#EBECF1' }}>
-                    <div style={{ height: 'max-content', width: '80%', borderRadius: '25px', backgroundColor: 'white', paddingLeft: '5%', paddingTop: '1%', height: '80vh' }}>
+                    <Container>
                         {data()}
                         {render > 0 &&
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", marginRight: '20px' }}>
-                                <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { incrementCount() }}>Next Question</div>
-                                <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { deleteQuestion() }}>Delete Question</div>
-                                <div style={{ width: '20%', textAlign: 'center', background: 'purple', color: 'white', fontSize: '20px', marginTop: '10px', padding: '1%', borderRadius: '10px' }} onClick={() => { decrementCount() }}>Previous Question</div>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", marginRight: '20px', marginBottom: "20px" }}>
+                                <Button variant="outlined" onClick={() => { incrementCount() }}>Next Question</Button>
+                                <Button variant="outlined" onClick={() => { deleteQuestion() }}>Delete Question</Button>
+                                <Button variant="outlined" onClick={() => { decrementCount() }}>Previous Question</Button>
                             </div>
                         }
-                        <div style={{ width: '60%', textAlign: 'center', background: 'green', padding: '2%', marginTop: '20px', color: 'white', fontSize: '30px' }} onClick={() => { navigateMe(); handleFileSubmission() }}>{endTestText}</div>
-                    </div>
+                        <Box sx={{ textAlign: "center" }}>
+                            <Button variant="contained" onClick={() => { navigateMe(); handleFileSubmission() }}>{endTestText}</Button>
+                        </Box>
+                    </Container>
 
                 </div>
             </div>

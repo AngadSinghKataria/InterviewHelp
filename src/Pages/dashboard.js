@@ -66,7 +66,7 @@ export default function Dashboard() {
         data = () => {
 
             return (
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} id="r1" key={"r1"}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>
