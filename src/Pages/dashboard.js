@@ -39,31 +39,8 @@ export default function Dashboard() {
 
     const selected_jd_file = '';
     const selected_resume_file = '';
-    /*
-        const resumeJdMatchScoreCal = () => {
-            const formData = new FormData();
-            formData.append('jd_file', selected_jd_file);
-            formData.append('resume_file', selected_resume_file);
-            fetch(
-                'http://127.0.0.1:5000/resumeScreening',
-                {
-                    method: 'POST',
-                    body: formData,
-                }
-            )
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log('Success:', result);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-        };
-    */
     const [render, setRender] = useState(0)
-    const [jobdata, setJobData] = useState([
-       
-    ])
+    const [jobdata, setJobData] = useState([])
     const [completedjobs, setCompletedJobs] = useState([])
     const [jobpostings, setjJobPostings] = useState("")
     const [totalapplications, setTotalApplications] = useState("")
