@@ -213,7 +213,7 @@ def get_dashboard():
     pendingjobs = []
     for row in c.fetchall():
         x = convertBinarytoFile(row[1],row[2])
-        y = 'src/Components/CVs/Angad_Singh_Kataria_CV.pdf'
+        y = 'src/Components/CVs/Hetvi_CV.pdf'
         res = MatchResume(y,x)
         if res>50:
             job = {
@@ -405,7 +405,7 @@ if __name__ == '__main__':
     c.execute('CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, job_id INTEGER NOT NULL, user_id INTEGER NOT NULL, score REAL NOT NULL, emotion REAL NOT NULL, confidence REAL NOT NULL, cheat REAL NOT NULL, selected TEXT NOT NULL)')
     # c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, company TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL)')
     c.execute('CREATE TABLE IF NOT EXISTS jobs (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  companyname TEXT NOT NULL, location TEXT NOT NULL, salary INTEGER NOT NULL, jobdescriptionfile BLOB NOT NULL)')
-    with open('src/Components/CVs/Angad_Singh_Kataria_CV.pdf', 'rb') as file:
+    with open('src/Components/CVs/Hetvi_CV.pdf', 'rb') as file:
         resume = file.read()
     c.execute('INSERT INTO users (name,email,accountType,resume) VALUES (?,?,?,?)',
            ('Abhinav', 'abhinav@gmail.com', 'student', resume))
